@@ -1,0 +1,6 @@
+@startuml
+!include <awslib/AWSCommon>
+!include <awslib/Compute/EC2>
+
+EC2(ec2, "Label", "Technology", "Optional Description")
+@enduml
