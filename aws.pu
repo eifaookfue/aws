@@ -1,5 +1,6 @@
 @startuml
 !include <awslib/AWSCommon>
+!include <awslib/AWSSimplified>
 !include <awslib/General/Users>
 !include <awslib/Groups/AWSCloud>
 !include <awslib/Groups/VPC>
