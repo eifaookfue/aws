@@ -1,0 +1,17 @@
+@startuml
+!include <awslib/AWSCommon>
+!include <awslib/AWSSimplified>
+!include <awslib/General/Users>
+!include <awslib/Compute/EC2>
+
+Users(users_01, "利用者", "")
+Users(users_02, "利用者", "")
+Users(users_03, "利用者", "")
+EC2(ec2_01, "App Server 01", "")
+EC2(ec2_02, "App Server 02", "")
+EC2(ec2_03, "App Server 03", "")
+
+users_01 -> ec2_01
+users_02 --> ec2_02
+users_03 ---> ec2_03
+@enduml
