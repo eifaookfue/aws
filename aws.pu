@@ -18,7 +18,7 @@ AWSCloudGroup(cloud) {
     VPCInternetGateway(ig, "Internet Gateway", "")
 
     PrivateSubnetGroup(private, プライベートサブネット) {
-      AuroraMySQLInstance(mysql, "Aurora MySQL", "")
+      AuroraMySQLInstance(mysql, "Aurora MySQL", "") #transparent
       EC2(ec2, "App Server", "")
     }
 
