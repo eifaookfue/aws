@@ -1,0 +1,18 @@
+@startuml
+!include <awslib/AWSCommon>
+!include <awslib/AWSSimplified>
+!include <awslib/General/Users>
+!include <awslib/Compute/EC2>
+
+Users(users, "利用者", "")
+Users(developer, "開発者", "")
+
+EC2(prd, "本番環境", "")
+EC2(stg, "検証環境", "")
+
+users -r-> prd
+developer -r-> stg
+
+' 利用者と開発者のアイコンを見えない矢印で結ぶ
+users -[hidden]d->developer
+@enduml
