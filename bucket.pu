@@ -1,0 +1,17 @@
+@startuml
+!include <awslib/AWSCommon>
+!include <awslib/AWSSimplified>
+!include <awslib/Compute/EC2>
+!include <awslib/Storage/SimpleStorageService>
+
+EC2(ec2, "App Server", "")
+SimpleStorageService(s3_bucket01, "Bucket01", "")
+SimpleStorageService(s3_bucket02, "Bucket02", "")
+SimpleStorageService(s3_bucket03, "Bucket03", "")
+SimpleStorageService(s3_bucket04, "Bucket04", "")
+
+ec2 -u-> s3_bucket01
+ec2 -r-> s3_bucket02
+ec2 -d-> s3_bucket03
+ec2 -l-> s3_bucket04
+@enduml
