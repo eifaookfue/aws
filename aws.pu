@@ -1,6 +1,34 @@
 @startuml
 !include <awslib/AWSCommon>
+!include <awslib/General/Users>
+!include <awslib/Groups/AWSCloud>
+!include <awslib/Groups/VPC>
+!include <awslib/Groups/PublicSubnet>
+!include <awslib/Groups/PrivateSubnet>
+!include <awslib/NetworkingContentDelivery/VPCInternetGateway>
+!include <awslib/NetworkingContentDelivery/VPCNATGateway>
 !include <awslib/Compute/EC2>
+!include <awslib/Database/AuroraMySQLInstance>
 
-EC2(ec2, "Label", "Technology", "Optional Description")
+Users(users, "利用者", "")
+
+AWSCloudGroup(cloud) {
+  VPCGroup(vpc) {
+    VPCInternetGateway(ig, "Internet Gateway", "")
+
+    PrivateSubnetGroup(private, プライベートサブネット) {
+      AuroraMySQLInstance(mysql, "Aurora MySQL", "")
+      EC2(ec2, "App Server", "")
+    }
+
+    PublicSubnetGroup(public, パブリックサブネット) {
+      VPCNATGateway(ng, "NAT Gateway", "")
+    }
+  }
+}
+
+users -> ig
+ig -> ng
+ng -> ec2
+ec2 -> mysql
 @enduml
