@@ -1,0 +1,51 @@
+@startuml VPC
+' Uncomment the line below for "dark mode" styling
+'!$AWS_DARK = true
+
+!include <awslib/AWSCommon>
+!include <awslib/AWSSimplified>
+!include <awslib/Compute/EC2>
+!include <awslib/Groups/AWSCloud>
+!include <awslib/Groups/VPC>
+!include <awslib/Groups/AvailabilityZone>
+!include <awslib/Groups/PublicSubnet>
+!include <awslib/Groups/PrivateSubnet>
+!include <awslib/NetworkingContentDelivery/VPCNATGateway>
+!include <awslib/NetworkingContentDelivery/VPCInternetGateway>
+!include <awslib/Storage/SimpleStorageService>
+!include <awslib/Compute/EC2Instance>
+
+hide stereotype
+skinparam linetype ortho
+
+AWSCloudGroup(cloud) {
+  VPCGroup(vpc) {
+    VPCInternetGateway(internet_gateway, "Internet gateway", "")
+
+    AvailabilityZoneGroup(az_1, "\tAvailability Zone 1\t") {
+      PublicSubnetGroup(az_1_public, "Public subnet") {
+        VPCNATGateway(az_1_nat_gateway, "NAT gateway", "") #Transparent
+      }
+      PrivateSubnetGroup(az_1_private, "Private subnet") {
+        EC2Instance(az_1_ec2_1, "Instance", "") #Transparent
+      }
+
+      az_1_ec2_1 .u.> az_1_nat_gateway
+    }
+
+    AvailabilityZoneGroup(az_2, "\tAvailability Zone 2\t") {
+      PublicSubnetGroup(az_2_public, "Public subnet") {
+        VPCNATGateway(az_2_nat_gateway, "NAT gateway", "") #Transparent
+      }
+      PrivateSubnetGroup(az_2_private, "Private subnet") {
+        EC2Instance(az_2_ec2_1, "Instance", "") #Transparent
+      }
+
+      az_2_ec2_1 .u.> az_2_nat_gateway
+    }
+
+    az_2_nat_gateway .[hidden]u.> internet_gateway
+    az_1_nat_gateway .[hidden]u.> internet_gateway
+  }
+}
+@enduml
