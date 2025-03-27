@@ -1,0 +1,23 @@
+@startuml
+!include <awslib/AWSCommon>
+!include <awslib/AWSSimplified>
+!include <awslib/Compute/EC2>
+!include <awslib/Storage/SimpleStorageService>
+
+skinparam rectangle<<hidden>> {
+  FontColor transparent
+  BackgroundColor transparent
+  BorderColor transparent
+}
+
+rectangle hoge <<hidden>> {
+  SimpleStorageService(s3_bucket01, "Bucket01", "")
+  SimpleStorageService(s3_bucket02, "Bucket02", "")
+  SimpleStorageService(s3_bucket03, "Bucket03", "")
+}
+rectangle foo <<hidden>> {
+  SimpleStorageService(s3_bucket04, "Bucket04", "")
+  SimpleStorageService(s3_bucket05, "Bucket05", "")
+  SimpleStorageService(s3_bucket06, "Bucket06", "")
+}
+@enduml
