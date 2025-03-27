@@ -6,6 +6,35 @@ hide circle
 ' avoid problems with angled crows feet
 skinparam linetype ortho
 
+entity "VPC" as vpc {
+    *vpc_id: varchar <<generated>>
+    --
+    cidr_block: varchar
+    owner_id: varchar
+}
+
+entity "SubNet" as subnet {
+    *subnet_id: varchar
+    --
+    name: varchar
+    vpc_id: varchar
+    availability_zone_id: varchar
+    cidr_block: varchar
+    owner_id: varchar
+}
+
+entity "InternetGW" as igw {
+    *igw_id: varchar
+    --
+    vpc_id: varchar
+}
+
+entity "RouteTable" as routetable {
+    *route_id: varchar
+    --
+
+}
+
 entity "Entity01" as e01 {
   *e1_id : number <<generated>>
   --
@@ -29,5 +58,8 @@ entity "Entity03" as e03 {
 
 e01 ||..o{ e02
 e01 |o..o{ e03
+vpc ||..o{ subnet
+vpc |o..o{ igw
+vpc ||..o{ routetable
 
 @enduml
