@@ -1,0 +1,28 @@
+
+@startuml route53-er-diagram
+
+entity "HOST_ZONE" as hz {
+    *HOST_ZONE_ID: varchar
+    --
+    HOST_ZONE_NAME: varchar
+    ZONE_TYPE [PUBLIC|PRIVATE]: varchar
+}
+
+entity "RESOURCE_RECORD" as record {
+    *RECORD_NAME: varchar
+    --
+    RECORD_TYPE [A|NS|SOA|CNAME]: varchar
+    ROUTING_POLICY [SIMPLE|..]: varchar
+    
+
+}
+
+entity "DESTINATION" as dn {
+    *VALUE: varchar
+}
+
+hz ||..|{ record
+record ||..o{ dn
+note right: AレコードだったらVALUEはIPアドレス、NSレコードだったらVALUEはネームサーバー
+
+@enduml
