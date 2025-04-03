@@ -1,4 +1,4 @@
-@startuml
+@startuml vpc-er-diagram
 
 ' hide the spot
 hide circle
@@ -11,6 +11,10 @@ entity "VPC" as vpc {
     --
     cidr_block: varchar
     owner_id: varchar
+}
+
+entity "AvailabilityZone" as av {
+  *availability_zone_id: varchar
 }
 
 entity "SubNet" as subnet {
@@ -30,36 +34,27 @@ entity "InternetGW" as igw {
 }
 
 entity "RouteTable" as routetable {
-    *route_id: varchar
+    *routetable_id: varchar
     --
-
+    name: varchar
+    vpc_id: varchar
+    subnet_id: varchar
 }
 
-entity "Entity01" as e01 {
-  *e1_id : number <<generated>>
+entity "Route" as route {
+  *rotetable_id: varchar
+  *destination_ip: varchar
   --
-  *name : text
-  description : text
+  target_type: varchar
+  taget_igw_id: varchar
+  
 }
 
-entity "Entity02" as e02 {
-  *e2_id : number <<generated>>
-  --
-  *e1_id : number <<FK>>
-  other_details : text
-}
-
-entity "Entity03" as e03 {
-  *e3_id : number <<generated>>
-  --
-  e1_id : number <<FK>>
-  other_details : text
-}
-
-e01 ||..o{ e02
-e01 |o..o{ e03
 vpc ||..o{ subnet
 vpc |o..o{ igw
 vpc ||..o{ routetable
-
+av ||..o{subnet
+subnet |o..o| routetable
+routetable ||..o{route
+igw |o..o{route
 @enduml
